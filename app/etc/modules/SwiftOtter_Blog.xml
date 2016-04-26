@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <SwiftOtter_Blog>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+                <SwiftOtter_Base/>
+            </depends>
+        </SwiftOtter_Blog>
+    </modules>
+</config>

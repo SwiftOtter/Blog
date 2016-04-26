@@ -1,0 +1,1 @@
+This blog module will is designed to interact with the JSON API Wordpress plugin. It relies on Guzzle to make a request to the endpoint and then displays the contents through Magento at the `/blog` URL. The advantage of this approach is the natural tie-in with the rest of the store.

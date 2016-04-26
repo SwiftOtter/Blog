@@ -1,0 +1,37 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2015 (c) SwiftOtter Studios
+ *
+ * @author    Jesse Maxwell
+ * @copyright Swift Otter Studios, 9/2/15
+ * @package   default
+ **/
+/** @var $post SwiftOtter_Blog_Model_Post */
+$post = $this->getPost();
+?>
+
+<div class="post-title-block<?php if ($this->getFeatured()):?> post-title-featured<?php endif; ?>">
+    <h2 class="post-title">
+        <a href="<?php echo $post->getUrl(); ?>" class="post-title-link"><?php echo $post->getTitle(); ?></a>
+    </h2>
+    <div class="post-meta-top">
+        <span class="post-meta post-time">Posted: <?php echo date("n\\.j\\.y", strtotime($post->getDate())); ?></span>
+        <a href="<?php echo $post->getCommentUrl(); ?>" class="post-comment-link post-top-link">
+            <?php if ($post->getComments()): ?>
+                <?php echo $this->__('Read'); ?> <?php echo $post->getNumberOfComments(); ?> <?php echo $this->__('Comment'); ?><?php if ($post->getNumberOfComments() > 1): ?>s<?php endif; ?>
+            <?php else: ?>Add a comment<?php endif; ?>
+        </a>
+    </div>
+</div>

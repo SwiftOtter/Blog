@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<layout>
+    <swiftotter_blog_index_page>
+        <update handle="swiftotter_blog_common" />
+        <reference name="blog.page">
+            <block type="SwiftOtter_Blog/Frontend_List" template="SwiftOtter/Blog/List.phtml" name="blog.content">
+                <block type="SwiftOtter_Blog/Frontend_Excerpt" template="SwiftOtter/Blog/Excerpt.phtml" name="post_excerpt" as="post.excerpt">
+                    <block type="SwiftOtter_Blog/Frontend_Single_Title" template="SwiftOtter/Blog/Single/Title.phtml" name="title.block" />
+                </block>
+                <block type="SwiftOtter_Blog/Frontend_Single" template="SwiftOtter/Blog/Single.phtml" name="single_poser" as="single.post">
+                    <block type="SwiftOtter_Blog/Frontend_Single_Title" template="SwiftOtter/Blog/Single/Title.phtml" name="title.block" />
+                </block>
+                <block type="SwiftOtter_Blog/Frontend_Paging" template="SwiftOtter/Blog/Paging.phtml" name="blog_paging"/>
+            </block>
+        </reference>
+    </swiftotter_blog_index_page>
+
+    <swiftotter_blog_index_view>
+        <reference name="root">
+            <action method="cachePage">
+                <expires>1</expires>
+                <disqualifiers>*</disqualifiers>
+            </action>
+        </reference>
+    </swiftotter_blog_index_view>
+
+    <swiftotter_blog_index_post>
+        <reference name="footer_references">
+            <action method="addJs">
+                <file>swiftotter/blog-comment.js</file>
+            </action>
+            <action method="addJs">
+                <file>swiftotter/tiled-gallery.js</file>
+            </action>
+            <block type="core/text" name="google.cdn.jquery">
+                <action method="setText">
+                    <text><![CDATA[<script src="https://www.google.com/recaptcha/api.js"></script>]]></text>
+                </action>
+            </block>
+            <block type="core/template" template="SwiftOtter/Blog/Comment/Js.phtml" name="comment.js" after="-"/>
+        </reference>
+
+        <update handle="swiftotter_blog_common" />
+
+        <reference name="blog.page">
+            <block type="SwiftOtter_Blog/Frontend_Single" template="SwiftOtter/Blog/Single.phtml" name="blog_post_single" as="blog.content">
+                <block type="SwiftOtter_Blog/Frontend_Single_Title" template="SwiftOtter/Blog/Single/Title.phtml" name="title.block" />
+
+                <block type="SwiftOtter_Blog/Frontend_Comment" template="SwiftOtter/Blog/Comment.phtml" name="comments">
+                    <block type="SwiftOtter_Blog/Frontend_Comment_Single" template="SwiftOtter/Blog/Comment/Single.phtml" name="comment.single"/>
+                    <block type="SwiftOtter_Blog/Frontend_Comment_Form" template="SwiftOtter/Blog/Comment/Form.phtml" name="comment.form"/>
+                </block>
+            </block>
+        </reference>
+    </swiftotter_blog_index_post>
+
+    <swiftotter_blog_index_search>
+        <update handle="swiftotter_blog_common"/>
+
+        <reference name="blog.page">
+            <block type="SwiftOtter_Blog/Frontend_Search" name="blog.content" template="SwiftOtter/Blog/Search.phtml">
+                <block type="SwiftOtter_Blog/Frontend_Single" template="SwiftOtter/Blog/Single.phtml" name="single_post" as="single.post">
+                    <block type="SwiftOtter_Blog/Frontend_Single_Title" template="SwiftOtter/Blog/Single/Title.phtml" name="title.block" />
+                </block>
+                <block type="SwiftOtter_Blog/Frontend_Paging" template="SwiftOtter/Blog/Paging.phtml" name="blog_paging"/>
+                <block type="cms/block" name="blog_no_search_results">
+                    <action method="setBlockId"><block_id>blog_no_search_results</block_id></action>
+                </block>
+                <block type="SwiftOtter_Blog/Frontend_Sidebar_SearchForm" name="blog_search_form" template="SwiftOtter/Blog/Sidebar/SearchForm.phtml" />
+            </block>
+        </reference>
+    </swiftotter_blog_index_search>
+
+    <swiftotter_blog_comment_add>
+        <block type="SwiftOtter_Blog/Frontend_Comment_Single" template="SwiftOtter/Blog/Comment/Single.phtml" output="toHtml"
+               name="comment"/>
+    </swiftotter_blog_comment_add>
+
+    <swiftotter_blog_common>
+        <reference name="head">
+            <action method="addCss">
+                <file>css/blog.css</file>
+            </action>
+            <block type="SwiftOtter_Blog/Frontend_Single" template="SwiftOtter/Blog/SocialJs.phtml" after="-" />
+        </reference>
+        <reference name="content">
+            <block type="SwiftOtter_Blog/Frontend_Page" template="SwiftOtter/Blog/Page.phtml" name="blog.page">
+                <block type="SwiftOtter_Blog/Frontend_Header" name="blog_header" as="header" template="SwiftOtter/Blog/Header.phtml" />
+                <block type="SwiftOtter_Blog/Frontend_Sidebar" template="SwiftOtter/Blog/Sidebar.phtml" name="blog_sidebar" as="blog.sidebar">
+                    <block type="SwiftOtter_Blog/Frontend_Sidebar_Widgets" template="SwiftOtter/Blog/Sidebar/Widgets.phtml" name="blog.sidebar.widgets">
+                        <block type="SwiftOtter_Blog/Frontend_Sidebar_SearchForm" as="search" name="blog_search_form" template="SwiftOtter/Blog/Sidebar/SearchForm.phtml" />
+                    </block>
+                    <block type="SwiftOtter_Blog/Frontend_Sidebar_Category" template="SwiftOtter/Blog/Sidebar/Category.phtml" name="blog.sidebar.category">
+                        <block type="SwiftOtter_Blog/Frontend_Sidebar_Category" template="SwiftOtter/Blog/Sidebar/Category/List.phtml" name="blog.sidebar.category.list"/>
+                    </block>
+                </block>
+            </block>
+        </reference>
+        <reference name="footer_references">
+            <action method="addJs">
+                <file>app/sticky-scroller.js</file>
+            </action>
+            <!--<action method="addJs">
+                <file>swiftotter/blog.js</file>
+            </action>-
+            <block type="core/template" template="SwiftOtter/Blog/Sidebar/Js.phtml" name="blog.sidebar.category.js" after="-"/>-->
+        </reference>
+    </swiftotter_blog_common>
+</layout>

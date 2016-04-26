@@ -1,0 +1,36 @@
+<?php
+/**
+ * @var $this SwiftOtter_Blog_Block_Frontend_Comment_Form
+ */
+?>
+
+<button style="display: none;" class="add-new-comment"><?php echo $this->__('Add Another Comment'); ?></button>
+
+<form action="<?php echo $this->getSubmitUrl(); ?>" method="POST" class="comment-box">
+    <?php echo $this->getBlockHtml('formkey') ?>
+
+    <input type="hidden" name="post_hash" value="<?php echo $this->getPostIdHash();?>"/>
+
+    <h3><?php echo $this->__('Leave a Comment'); ?></h3>
+    <div class="form-item comment-form-item">
+        <label for="name" class="required"><em>*</em><?php echo $this->__('Your Name:'); ?></label><br />
+        <input type="text" name="name" id="name" required="required" class="comment-name" />
+    </div>
+
+    <div class="form-item comment-form-item last clearfix">
+        <label for="email" class="required"><em>*</em><?php echo $this->__('Your Email:'); ?></label><br />
+        <input type="email" name="email" id="email" required="required" class="comment-email"/>
+    </div>
+
+    <div class="form-item">
+        <label for="content" class="required"><em>*</em><?php echo $this->__('Comment:'); ?></label>
+        <textarea id="content" name="content" rows="10" required="required" class="comment-text"></textarea>
+    </div>
+
+    <div class="g-recaptcha" data-sitekey="<?php echo Mage::helper('SwiftOtter_Blog')->getGoogleApiPublicKey(); ?>"></div>
+
+    <p class="required">* <?php echo $this->__('Required Fields'); ?></p>
+    <button type="submit" class="comment-submit"><?php echo $this->__('Submit your comment'); ?></button>
+</form>
+
+<div class="comment-success" style="display: none"><?php echo $this->__('Thank you for leaving a comment. After a moderator approves it, everyone will be able to see it.'); ?></div>

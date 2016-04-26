@@ -1,0 +1,54 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2015 (c) SwiftOtter Studios
+ *
+ * @author    Jesse Maxwell
+ * @copyright Swift Otter Studios, 9/9/15
+ * @package   default
+ **/
+?>
+
+<?php /** @var $_post SwiftOtter_Blog_Block_Frontend_Single */ ?>
+<?php $_post = $this->getPost(); ?>
+
+<?php if ($this->helper('SwiftOtter_Blog')->getFacebook()): ?>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+<?php endif; ?>
+
+<?php if ($this->helper('SwiftOtter_Blog')->getTwitter()): ?>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<?php endif; ?>
+
+<?php if ($this->helper('SwiftOtter_Blog')->getPinterest()): ?>
+    <script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js" data-pin-hover="true"></script>
+<?php endif; ?>
+
+<?php if ($_post): ?>
+    <meta property="og:title" content="<?php echo $_post->getTitle(); ?>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="<?php echo $_post->getUrl(); ?>" />
+    <meta property="og:site_name" content="<?php echo $this->__("Pleasant Hill Grain"); ?>" />
+
+    <?php if ($_featuredImages = $_post->getThumbnailImages() && isset($_post->getThumbnailImages()['full']['url'])): ?>
+        <meta property="og:image" content="<?php echo $_post->getThumbnailImages()['full']['url']; ?>" />
+    <?php endif; ?>
+<?php endif; ?>

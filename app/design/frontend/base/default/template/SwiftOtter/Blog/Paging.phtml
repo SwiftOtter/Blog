@@ -1,0 +1,59 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2013 (c) SwiftOtter Studios
+ *
+ * @author Joseph Maxwell
+ * @copyright Swift Otter Studios, 9/4/15
+ * @package default
+ **/
+/** @var SwiftOtter_Blog_Block_Frontend_Paging $this */
+?>
+
+<?php $start = $this->getStartPage();?>
+<?php $end = $this->getEndPage();?>
+
+<?php if ($start < $end):?>
+<div class="toolbar">
+<div class="pager">
+    <span class="pages-title"><?php echo $this->__('Page:');?></span>
+    <div class=" pages">
+        <ol>
+            <?php if ($this->getStartPage() != $this->getCurrentPage()): ?>
+                <li>
+                    <a class="previous" href="<?php echo $this->getLink($this->getCurrentPage() - 1) ?>" title="<?php echo $this->__('Previous') ?>">
+                        <span class="increment"></span>
+                    </a>
+                </li>
+            <?php endif; ?>
+            <?php for($i = $start; $i <= $end; $i++): ?>
+            <?php $currentPage = $i == $this->getCurrentPage();?>
+                <li <?php if ($currentPage):?>class="current"<?php endif;?>>
+                    <?php if (!$currentPage):?><a href="<?php echo $this->getLink($i);?>"><?php endif;?>
+                        <?php echo $i;?>
+                    <?php if (!$currentPage):?></a><?php endif;?>
+                </li>
+            <?php endfor;?>
+            <?php if ($this->getEndPage() != $this->getCurrentPage()): ?>
+                <li>
+                    <a class="next" href="<?php echo $this->getLink($this->getCurrentPage() + 1) ?>" title="<?php echo $this->__('Next') ?>">
+                        <span class="increment"></span>
+                    </a>
+                </li>
+            <?php endif;?>
+        </ol>
+    </div>
+</div>
+</div>
+<?php endif;?>

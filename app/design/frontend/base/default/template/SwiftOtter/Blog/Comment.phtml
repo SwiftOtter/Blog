@@ -1,0 +1,41 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2013 (c) SwiftOtter Studios
+ *
+ * @author Joseph Maxwell
+ * @copyright Swift Otter Studios, 5/19/15
+ * @package default
+ **/
+
+/** @var SwiftOtter_Blog_Block_Frontend_Comment $this */
+
+$comments = $this->getComments();
+?>
+
+<div class="comment-section">
+    <a name="comments"></a>
+    <div class="comment-list">
+        <?php if ($comments): ?>
+            <?php $child = $this->getChild('comment.single');?>
+            <?php foreach($comments as $comment): ?>
+                <?php $child->setComment($comment);?>
+                <?php echo $child->toHtml(); ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="no-items"><?php echo $this->__('No one has posted a comment yet.'); ?></p>
+        <?php endif; ?>
+    </div>
+    <?php echo $this->getChildHtml('comment.form'); ?>
+</div>

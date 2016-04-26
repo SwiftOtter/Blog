@@ -1,0 +1,31 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2015 (c) SwiftOtter Studios
+ *
+ * @author    Jesse Maxwell
+ * @copyright Swift Otter Studios, 12/16/15
+ * @package   default
+ **/
+?>
+<div class="sidebar-block one-line-form-container blog-search-box">
+    <form method="get" action="<?php echo $this->getActionUrl(); ?>">
+        <div class="one-line-form">
+            <input type="text" id="blog_search" name="<?php echo $this->getSearchParam(); ?>" title="<?php echo $this->__("Search Blog"); ?>" placeholder="<?php echo $this->__("Search Blog"); ?>" value="<?php echo $this->getSearchTerm(); ?>" class="one-line-form-input"/>
+            <button type="submit" class="one-line-button blog-search-button"><svg height="16" width="16" viewBox="0 0 20 20" alt="<?php echo $this->__("Search Blog"); ?>" style="fill:#fff;">
+                    <use xlink:href="<?php echo $this->getSkinUrl('images/sprite.svg'); ?>#search-icon" data-fallback="<?php echo $this->getSkinUrl('images/fallback/search-icon.png') ?>"></use>
+                </svg></button>
+        </div>
+    </form>
+</div>

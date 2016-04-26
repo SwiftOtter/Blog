@@ -1,0 +1,19 @@
+{
+    "name": "swiftotter/blog",
+    "description": "SwiftOtter's blog module that connects to a Wordpress API.",
+    "version": "1.0.0",
+    "type": "magento-module",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "authors":[
+    	{
+    		"name": "Joseph Maxwell",
+    		"email": "joseph@swiftotter.com"
+    	},
+        {
+                "name": "Jesse Maxwell",
+                "email": "jesse@swiftotter.com"
+        }
+    ]
+}

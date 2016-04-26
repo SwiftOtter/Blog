@@ -1,0 +1,6 @@
+app/code/community/SwiftOtter/Blog                                  app/code/community/SwiftOtter/Blog
+
+app/design/adminhtml/default/default/template/SwiftOtter/Base   app/design/adminhtml/default/default/template/SwiftOtter/Blog
+app/design/adminhtml/default/default/layout/SwiftOtter/*        app/design/adminhtml/default/default/layout/SwiftOtter/
+
+app/etc/modules/*                                               app/etc/modules/

@@ -1,0 +1,125 @@
+<config>
+    <modules>
+        <SwiftOtter_Blog>
+            <version>3</version>
+            <depends>
+                <SwiftOtter_Base/>
+            </depends>
+        </SwiftOtter_Blog>
+    </modules>
+
+    <global>
+        <blocks>
+            <SwiftOtter_Blog>
+                <class>SwiftOtter_Blog_Block</class>
+            </SwiftOtter_Blog>
+        </blocks>
+        <models>
+            <SwiftOtter_Blog>
+                <class>SwiftOtter_Blog_Model</class>
+                <resourceModel>SwiftOtter_Blog_Resource</resourceModel>
+            </SwiftOtter_Blog>
+
+            <SwiftOtter_Blog_Resource>
+                <class>SwiftOtter_Blog_Model_Resource</class>
+                <entities>
+                    <Category>
+                        <table>swiftotter_blog_category</table>
+                    </Category>
+                    <Tag>
+                        <table>swiftotter_blog_tag</table>
+                    </Tag>
+                    <DateIndex>
+                        <table>swiftotter_blog_dateindex</table>
+                    </DateIndex>
+                </entities>
+            </SwiftOtter_Blog_Resource>
+        </models>
+
+        <helpers>
+            <SwiftOtter_Blog>
+                <class>SwiftOtter_Blog_Helper</class>
+            </SwiftOtter_Blog>
+        </helpers>
+
+        <resources>
+            <SwiftOtter_Blog>
+                <setup>
+                    <module>SwiftOtter_Blog</module>
+                    <class>Mage_Eav_Model_Entity_Setup</class>
+                </setup>
+            </SwiftOtter_Blog>
+        </resources>
+
+        <events>
+            <controller_action_layout_render_before_blog_index_view>
+                <observers>
+                    <SwiftOtter_Blog>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Blog/Observer</class>
+                        <method>controllerActionLayoutRenderBeforeBlogIndexView</method>
+                    </SwiftOtter_Blog>
+                </observers>
+            </controller_action_layout_render_before_blog_index_view>
+            <controller_front_init_routers>
+                <observers>
+                    <SwiftOtter_Blog>
+                        <class>SwiftOtter_Blog/Observer_Router</class>
+                        <method>controllerFrontInitRouters</method>
+                    </SwiftOtter_Blog>
+                </observers>
+            </controller_front_init_routers>
+        </events>
+    </global>
+
+    <crontab>
+        <jobs>
+            <SwiftOtter_Blog>
+                <schedule>0 * * * *</schedule>
+                <run><model>SwiftOtter_Blog/Cron::refreshStructure</model></run>
+            </SwiftOtter_Blog>
+        </jobs>
+    </crontab>
+
+    <default>
+        <swiftotter_config>
+            <blog>
+                <json_append_parameter>json</json_append_parameter>
+                <sidebar_widget_id>sidebar-1</sidebar_widget_id>
+                <enable_facebook>1</enable_facebook>
+                <enable_twitter>1</enable_twitter>
+                <enable_pinterest>1</enable_pinterest>
+                <blog_no_route>404-blog-error</blog_no_route>
+            </blog>
+        </swiftotter_config>
+    </default>
+
+    <frontend>
+        <routers>
+            <SwiftOtter_Blog>
+                <use>standard</use>
+                <args>
+                    <module>SwiftOtter_Blog</module>
+                    <frontName>blog</frontName>
+                </args>
+            </SwiftOtter_Blog>
+        </routers>
+        <layout>
+            <updates>
+                <SwiftOtter_Blog>
+                    <file>SwiftOtter_Blog.xml</file>
+                </SwiftOtter_Blog>
+            </updates>
+        </layout>
+    </frontend>
+
+    <adminhtml>
+        <layout>
+            <updates>
+                <SwiftOtter_Blog>
+                    <file>SwiftOtter/Blog.xml</file>
+                </SwiftOtter_Blog>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

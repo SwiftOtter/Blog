@@ -1,0 +1,38 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2013 (c) SwiftOtter Studios
+ *
+ * @author Joseph Maxwell
+ * @copyright Swift Otter Studios, 5/19/15
+ * @package default
+ **/
+
+/** @var SwiftOtter_Blog_Block_Frontend_Comment_Single $this */
+/** @var SwiftOtter_Blog_Model_Post_Comment $comment */
+
+$comment = $this->getComment();
+
+?>
+
+<div class="comment comment-level-<?php echo $comment->getLevel(); ?>">
+    <?php if ($url = $comment->getUrl()): ?><a href="<?php echo $url; ?>" target="_blank"><?php endif; ?>
+        <h4 class="comment-author"><?php echo $comment->getName(); ?></h4>
+        <span class="comment-date"><?php echo $this->__('commented on'); ?> <?php echo date("F j\\, Y \\a\\t g:i a", strtotime($comment->getDate())); ?></span>
+        <?php if ($url): ?></a><?php endif; ?>
+
+    <div class="comment-content">
+        <?php echo $comment->getContent(); ?>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<?php /** @var $this SwiftOtter_Blog_Block_Frontend_Page */ ?>
+
+<?php if ($this->shouldShowNavigation() && 1==2): ?>
+    <?php // Disabled ?>
+    <div class="post-nav">
+        <a href="<?php echo Mage::helper('SwiftOtter_Blog')->getPreviousUrl(); ?>" class="link-as-button post-nav-link"><img src="<?php echo $this->getSkinUrl('images/arrow-left.svg'); ?>" alt="<?php echo $this->__('Return to blog home'); ?>" class="post-nav-back-icon"/> <?php echo $this->__('Return to blog'); ?></a>
+    </div>
+<?php endif; ?>
+
+<?php echo $this->getChildHtml('header'); ?>
+
+<div class="blog-content">
+    <?php echo $this->getChildHtml('blog.content'); ?>
+</div>
+<div class="blog-sidebar">
+    <?php echo $this->getChildHtml('blog.sidebar'); ?>
+</div>

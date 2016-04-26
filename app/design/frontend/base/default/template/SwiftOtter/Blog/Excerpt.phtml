@@ -1,0 +1,62 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2013 (c) SwiftOtter Studios
+ *
+ * @author Tyler Schade
+ * @copyright Swift Otter Studios, 2/17/16
+ * @package default
+ **/
+?>
+
+<?php
+/**
+ * @var $this SwiftOtter_Blog_Block_Frontend_Single
+ * @var $tag SwiftOtter_Blog_Model_Tag
+ * @var $post SwiftOtter_Blog_Model_Post
+ */
+?>
+<?php $post = $this->getPost() ?>
+<?php $comments = $post->getComments(); ?>
+<?php $commentNumber = $post->getNumberOfComments(); ?>
+<?php $_titleBlock = $this->getChild('title.block'); ?>
+<?php $_titleBlock->setPost($post); ?>
+
+<div class="post-single<?php if(!$this->getIsSingle()): ?> post-in-list<?php endif; ?>">
+    <?php if ($post): ?>
+        <div class="post-header">
+            <?php $_titleBlock->setFeatured(true); ?>
+            <?php echo $_titleBlock->toHtml(); ?>
+            <?php $thumbnails = $post->getThumbnailImages();?>
+            <?php if (isset($thumbnails['post-thumbnail'])): ?>
+                <?php $featured = $thumbnails['post-thumbnail']; ?>
+                <div class="post-header-featured">
+                    <div class="post-featured-container">
+                        <img src="<?php echo $featured['url'] ?>" alt="<?php echo $post->getTitle(); ?> featured image" class="post-featured-image"/>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div class="post-content">
+            <?php echo $post->getExcerpt(); ?>
+        </div>
+
+        <p>
+            <a href="<?php echo $post->getUrl(); ?>" class="link-as-button">Continue reading</a>
+        </p>
+    <?php else: ?>
+        <h2><?php echo $this->__("I'm sorry, but we couldn't find the post."); ?></h2>
+    <?php endif; ?>
+</div>
