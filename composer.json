@@ -4,7 +4,8 @@
     "version": "1.0.0",
     "type": "magento-module",
     "require": {
-        "magento-hackathon/magento-composer-installer": "*"
+        "magento-hackathon/magento-composer-installer": "*",
+        "guzzle/guzzle": "~3.9"
     },
     "authors":[
     	{
