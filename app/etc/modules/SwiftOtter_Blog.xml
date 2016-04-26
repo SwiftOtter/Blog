@@ -3,7 +3,7 @@
     <modules>
         <SwiftOtter_Blog>
             <active>true</active>
-            <codePool>local</codePool>
+            <codePool>community</codePool>
             <depends>
                 <SwiftOtter_Base/>
             </depends>
