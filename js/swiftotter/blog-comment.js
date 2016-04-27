@@ -145,10 +145,17 @@
                 data: base.$form.serialize(),
                 method: "POST",
                 complete: function(response) {
+                    var json = {};
                     $submit.text(originalText).removeClass('disabled').attr('disabled', false);
 
-                    if (response.success().responseJSON && response.success().responseJSON.html) {
-                        base.handleSuccess(JSON.parse(response.responseText));
+                    if (!response.hasOwnProperty('responseJSON')) {
+                        json = JSON.parse(response.responseText);
+                    } else {
+                        json = response.responseJSON;
+                    }
+
+                    if (response.success() && json.html) {
+                        base.handleSuccess(json);
                     } else {
                         base.handleError(response.responseJSON.error);
                     }
