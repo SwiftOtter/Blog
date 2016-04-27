@@ -40,7 +40,7 @@
             base.$success.show(200);
 
             // Can we trust this data?
-            base.$list.append($(response.html)).fadeIn('slow');
+            base.$list.append(jQuery.parseHTML(response.html)).fadeIn('slow');
             base.$list.find('.no-items').remove();
             base.toggleCommentBox();
             base.$form.find('.comment-text').val('');
@@ -157,7 +157,7 @@
                     if (response.success() && json.html) {
                         base.handleSuccess(json);
                     } else {
-                        base.handleError(response.responseJSON.error);
+                        base.handleError(json.error);
                     }
                 }
             });

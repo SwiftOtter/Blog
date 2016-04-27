@@ -27,12 +27,12 @@ $comment = $this->getComment();
 ?>
 
 <div class="comment comment-level-<?php echo $comment->getLevel(); ?>">
-    <?php if ($url = $comment->getUrl()): ?><a href="<?php echo $url; ?>" target="_blank"><?php endif; ?>
-        <h4 class="comment-author"><?php echo $comment->getName(); ?></h4>
+    <?php if ($url = $comment->getUrl()): ?><a href="<?php echo $this->escapeHtml($url); ?>" target="_blank"><?php endif; ?>
+        <h4 class="comment-author"><?php echo $this->escapeHtml($comment->getName()); ?></h4>
         <span class="comment-date"><?php echo $this->__('commented on'); ?> <?php echo date("F j\\, Y \\a\\t g:i a", strtotime($comment->getDate())); ?></span>
         <?php if ($url): ?></a><?php endif; ?>
 
     <div class="comment-content">
-        <?php echo $comment->getContent(); ?>
+        <?php echo $this->escapeHtml($comment->getContent()); ?>
     </div>
 </div>
