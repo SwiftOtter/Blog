@@ -157,7 +157,7 @@
                     if (response.success() && json.html) {
                         base.handleSuccess(json);
                     } else {
-                        base.handleError(response.responseJSON.error);
+                        base.handleError(json.error);
                     }
                 }
             });
