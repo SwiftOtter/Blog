@@ -33,6 +33,6 @@ $comment = $this->getComment();
         <?php if ($url): ?></a><?php endif; ?>
 
     <div class="comment-content">
-        <?php echo $this->escapeHtml($comment->getContent()); ?>
+        <?php echo $this->escapeHtml($comment->getContent(), ['p', 'a', 'br', 'b', 'strong', 'i', 'em', 'pre', 'blockquote']); ?>
     </div>
 </div>
