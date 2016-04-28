@@ -186,7 +186,9 @@ class SwiftOtter_Blog_IndexController extends Mage_Core_Controller_Front_Action
             }
         }
 
-        Mage::helper('PleasantHill_Adminhtml/Cache_Key')->clean([ '*blog*', '*BLOG*' ]);
+        if (Mage::helper('core')->isModuleEnabled('PleasantHill_Adminhtml')) {
+            Mage::helper('PleasantHill_Adminhtml/Cache_Key')->clean([ '*blog*', '*BLOG*' ]);
+        }
     }
 
     protected function _noRouteAction()

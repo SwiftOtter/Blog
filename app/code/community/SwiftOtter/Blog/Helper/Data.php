@@ -91,6 +91,11 @@ class SwiftOtter_Blog_Helper_Data extends SwiftOtter_Base_Helper_Data
         return $this->getEndpointUrl() . "api/widgets/get_sidebar/?sidebar_id=" . $this->getStoreConfig('sidebar_widget_id');
     }
 
+    public function getFeedUrl()
+    {
+        return $this->getBlogUrl(true) . "feed/";
+    }
+
     public function getBlogUrl($disableUrlParam = false)
     {
         $href = $this->getEndpointUrl() . $this->getBlogParams();

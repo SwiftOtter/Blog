@@ -145,6 +145,8 @@ class SwiftOtter_Blog_Model_Post extends Mage_Core_Model_Abstract
 
     protected function _filter()
     {
+        Mage::dispatchEvent(SwiftOtter_Blog_Model_Event::PRE_FILTER_CONTENT, array('post' => $this));
+
         $helper = Mage::helper('SwiftOtter_Blog');
         $searches = array(
             'url',
@@ -155,5 +157,7 @@ class SwiftOtter_Blog_Model_Post extends Mage_Core_Model_Abstract
         foreach ($searches as $key) {
             $this->setData($key, $helper->filter($this->getData($key)));
         }
+
+        Mage::dispatchEvent(SwiftOtter_Blog_Model_Event::FILTER_POST_CONTENT, array('post' => $this));
     }
 }

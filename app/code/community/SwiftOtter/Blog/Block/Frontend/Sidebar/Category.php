@@ -21,6 +21,12 @@
 
 class SwiftOtter_Blog_Block_Frontend_Sidebar_Category extends SwiftOtter_Base_Block_Template
 {
+    public function hasCategories()
+    {
+        return (bool) count($this->getCategoryTree());
+    }
+
+
     public function getCategoryTree()
     {
         if ($this->getCategories()) {

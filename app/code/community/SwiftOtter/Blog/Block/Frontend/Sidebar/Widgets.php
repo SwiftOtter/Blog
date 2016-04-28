@@ -52,8 +52,21 @@ class SwiftOtter_Blog_Block_Frontend_Sidebar_Widgets extends SwiftOtter_Base_Blo
         }
 
         if (isset($response["widgets"])) {
-            return $response["widgets"];
+            return $this->filter($response["widgets"]);
         }
+    }
+    
+    public function filter($widgets)
+    {
+        $widgetObject = new Varien_Object();
+        $widgetObject->setData('widgets', $widgets);
+
+
+        Mage::dispatchEvent(SwiftOtter_Blog_Model_Event::FILTER_WIDGET_URLS, array('widget_group' => $widgetObject));
+
+        Mage::dispatchEvent(SwiftOtter_Blog_Model_Event::FILTER_WIDGETS, array('widget_group' => $widgetObject));
+
+        return $widgetObject->getWidgets();
     }
 
     /**

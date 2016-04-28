@@ -81,6 +81,7 @@
             <action method="addCss">
                 <file>css/blog.css</file>
             </action>
+            <block type="SwiftOtter_Blog/Frontend_Header" name="blog.head.link" template="SwiftOtter/Blog/Head/Link.phtml" after="-" />
             <block type="SwiftOtter_Blog/Frontend_Single" template="SwiftOtter/Blog/SocialJs.phtml" after="-" />
         </reference>
         <reference name="content">

@@ -23,4 +23,23 @@ class SwiftOtter_Blog_Model_Observer
     {
         Mage::app()->getLayout()->getBlock('root')->setCachePage(false);
     }
+
+    public function filterWidgetUrls($event)
+    {
+        $data = $event->getWidgetGroup();
+        $widgets = $data->getWidgets();
+        $helper = Mage::helper('SwiftOtter_Blog');
+        
+        if (!$widgets) {
+            return false;
+        }
+        
+        foreach ($widgets as $key => $widget) {
+            if (isset($widget['widget'])) {
+                $widgets[$key]['widget'] = $helper->filter($widget['widget']);
+            }
+        }
+
+        $data->setWidgets($widgets);
+    }
 }

@@ -24,6 +24,7 @@
  */
 ?>
 
+<?php if ($this->hasCategories()): ?>
 <div class="sidebar-block block-category">
     <h4 class="sidebar-title"><?php echo $this->__('Categories:'); ?></h4>
     <select title="<?php echo $this->__('Categories'); ?>" class="category-select" id="choose_category">
@@ -36,3 +37,4 @@
         });
     </script>
 </div>
+<?php endif; ?>

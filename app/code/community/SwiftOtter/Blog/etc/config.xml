@@ -69,6 +69,15 @@
                     </SwiftOtter_Blog>
                 </observers>
             </controller_front_init_routers>
+            <blog_filter_sidebar_urls>
+                <observers>
+                    <SwiftOtter_Blog>
+                        <type>singleton</type>
+                        <class>SwiftOtter_Blog/Observer</class>
+                        <method>filterWidgetUrls</method>
+                    </SwiftOtter_Blog>
+                </observers>
+            </blog_filter_sidebar_urls>
         </events>
     </global>
 
