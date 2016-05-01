@@ -1,0 +1,128 @@
+// Not in use until necessary:
+
+.product-tag {
+  position: absolute;
+  z-index: 20;
+  background-color: rgba(#fff, 0.8);
+  cursor: pointer;
+  border-radius: 100%;
+  padding: 6px;
+  transition: transform 0.1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  &-image {
+    &-container {
+      position: relative;
+      z-index: 2;
+      overflow: visible;
+      transition: margin .2s ease-in-out;
+
+      &.size-medium {
+        margin-bottom: 20px;
+
+        &.viewer-open {
+          margin-bottom: 60px;
+        }
+      }
+
+      img {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.tag-data {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  z-index: 4;
+  transition: height .2s ease-in-out;
+
+  .size-medium & {
+    height: 60px;
+    top: 100%;
+    bottom: auto;
+    background-color: #F9F9F9;
+    border: solid #aaa;
+    border-width: 0 1px 1px 1px;
+    border-radius: 0 0 3px 3px;
+  }
+
+  &-info {
+    background-color: rgba(#fff, 0.8);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 100px;
+    z-index: 6;
+
+    .size-medium & {
+      background-color: transparent;
+      top: 0;
+      margin: auto;
+      height: 40px;
+    }
+  }
+
+  &-name {
+    padding: 0 1em;
+    color: #181818;
+    font-size: 1.25em;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: calc(100% - 60px);
+    position: absolute;
+
+    .size-medium & {
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 0.9em;
+    }
+  }
+
+  &-action {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0.5em 0.5em 0.5em 0;
+    border: 1px solid #181818;
+    color: #181818;
+    border-radius: 3px;
+    background-color: #fff;
+    padding: 0.25em 0.5em;
+    float: right;
+  }
+
+  img {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border: 5px solid rgba(#fff, 0.8);
+    max-height: 100%;
+    z-index: 10;
+
+    .size-medium & {
+      border-color: transparent;
+      bottom: 0;
+      top: 0;
+      margin: auto;
+    }
+  }
+
+  &.off {
+    height: 0;
+  }
+}

@@ -50,6 +50,7 @@
                     <block type="SwiftOtter_Blog/Frontend_Comment_Single" template="SwiftOtter/Blog/Comment/Single.phtml" name="comment.single"/>
                     <block type="SwiftOtter_Blog/Frontend_Comment_Form" template="SwiftOtter/Blog/Comment/Form.phtml" name="comment.form"/>
                 </block>
+                <block type="SwiftOtter_Blog/Frontend_Product_Tag" name="blog.post.single.product.tags" as="product_tags" template="SwiftOtter/Blog/Product/Tag.phtml" />
             </block>
         </reference>
     </swiftotter_blog_index_post>

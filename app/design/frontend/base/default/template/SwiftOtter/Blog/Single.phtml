@@ -60,20 +60,24 @@
 
         <div class="post-meta-group post-meta-footer">
             <span class="post-meta post-time"><span class="post-meta-label"><?php echo $this->__('Posted'); ?>:</span> <?php echo date("F j\\, Y", strtotime($post->getDate())); ?></span>
-            <span class="post-meta post-category"><span class="post-meta-label"><?php echo $this->__('Category'); ?>:</span>
-                <?php $catIndex = 1; ?>
-                <?php foreach($post->getCategories() as $category): ?>
-                    <a href="<?php echo $category->getUrl(); ?>"><?php echo $category->getTitle(); ?></a><?php if ($catIndex < $post->getNumberOfCategories()): ?>, <?php endif; ?>
-                    <?php $catIndex++; ?>
-                <?php endforeach; ?>
-            </span>
-            <span class="post-meta post-tags"><span class="post-meta-label"><?php echo $this->__('Tagged'); ?>:</span>
-                <?php $index = 1; ?>
-                <?php foreach($post->getTags() as $tag): ?>
-                    <a href="<?php echo $tag->getUrl(); ?>"><?php echo $tag->getTitle(); ?></a><?php if ($index < $post->getNumberofTags()): ?>, <?php endif; ?>
-                    <?php $index++; ?>
-                <?php endforeach; ?>
-            </span>
+            <?php if ($post->getNumberOfCategories() > 0): ?>
+                <span class="post-meta post-category"><span class="post-meta-label"><?php echo $this->__('Category'); ?>:</span>
+                    <?php $catIndex = 1; ?>
+                    <?php foreach($post->getCategories() as $_category): ?>
+                        <a href="<?php echo $_category->getUrl(); ?>"><?php echo $_category->getTitle(); ?></a><?php if ($catIndex < $post->getNumberOfCategories()): ?>, <?php endif; ?>
+                        <?php $catIndex++; ?>
+                    <?php endforeach; ?>
+                </span>
+            <?php endif; ?>
+            <?php if ($post->getNumberofTags()): ?>
+                <span class="post-meta post-tags"><span class="post-meta-label"><?php echo $this->__('Tags'); ?>:</span>
+                    <?php $index = 1; ?>
+                    <?php foreach($post->getTags() as $_tag): ?>
+                        <a href="<?php echo $_tag->getUrl(); ?>"><?php echo $_tag->getTitle(); ?></a><?php if ($index < $post->getNumberofTags()): ?>, <?php endif; ?>
+                        <?php $index++; ?>
+                    <?php endforeach; ?>
+                </span>
+            <?php endif; ?>
         </div>
 
         <a href="<?php echo $post->getCommentUrl(); ?>" class="post-comment-link">
@@ -89,6 +93,10 @@
             <?php endif; ?>
         <?php endif; ?>
 
+        <?php $productTagBlock = $this->getChild('product_tags'); ?>
+        <?php if ($productTagBlock && $post->hasProductTags()): ?>
+            <?php echo $productTagBlock->setProductTags($post->getProductTags())->toHtml(false); ?>
+        <?php endif; ?>
     <?php else: ?>
         <h2><?php echo $this->__("I'm sorry, but we couldn't find the post."); ?></h2>
     <?php endif; ?>

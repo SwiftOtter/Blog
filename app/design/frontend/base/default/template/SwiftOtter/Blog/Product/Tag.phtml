@@ -1,0 +1,41 @@
+<?php
+/**
+ * SwiftOtter_Base is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * SwiftOtter_Base is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright: 2016 (c) SwiftOtter Studios
+ *
+ * @author    Jesse Maxwell
+ * @copyright Swift Otter Studios, 4/28/16
+ * @package   default
+ **/
+?>
+<div class="hidden">
+    <a href="#" class="product-tag" id="tag_prototype" target="_blank">
+        <div class="product-tag-icon"><img src="<?php echo $this->getSkinUrl('images/blog/tag.svg'); ?>" alt="<?php echo $this->__('Product Tag'); ?>"/></div>
+    </a>
+    <a  href="#" class="tag-data off" id="viewer_prototype" target="_blank">
+        <div class="tag-data-info">
+            <div class="tag-data-name"></div>
+            <div class="tag-data-action"><?php echo $this->__('Shop'); ?></div>
+        </div>
+    </a>
+</div>
+<div class="tag-data-name-container"></div>
+<script type="text/javascript" src="<?php echo $this->getJsUrl('swiftotter/blog-product-tag.js'); ?>"></script>
+<script type="text/javascript">
+    var productTags = new TagManager([
+        <?php foreach($this->getTagsAsJsObjects() as $object): ?>
+            <?php echo $object; ?>,
+        <?php endforeach; ?>
+    ], "tag_prototype", 'viewer_prototype');
+</script>

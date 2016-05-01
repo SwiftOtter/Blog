@@ -25,6 +25,7 @@ class SwiftOtter_Blog_Model_Post extends Mage_Core_Model_Abstract
     protected $_author;
     protected $_tags;
     protected $_categories;
+    protected $_productTags;
 
     public function init(array $json)
     {
@@ -126,6 +127,26 @@ class SwiftOtter_Blog_Model_Post extends Mage_Core_Model_Abstract
         }
 
         return $this->_categories;
+    }
+
+    public function hasProductTags()
+    {
+        return (bool) count($this->getProductTags()) > 0;
+    }
+    
+    public function getProductTags()
+    {
+        if (!$this->_productTags && is_array($this->getData('product_tags'))) {
+            $productTags = [];
+
+            foreach ($this->getData('product_tags') as $productTagData) {
+                $productTags[] = Mage::getModel('SwiftOtter_Blog/Product_Tag')->setData($productTagData);
+            }
+
+            $this->_productTags = $productTags;
+        }
+
+        return $this->_productTags;
     }
 
     public function getNumberOfCategories()
