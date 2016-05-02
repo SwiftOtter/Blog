@@ -40,8 +40,8 @@ class SwiftOtter_Blog_Block_Frontend_Product_Tag extends SwiftOtter_Base_Block_T
     {
         $objects = [];
 
-        if ($tags = $this->getProductTags()) {
-            foreach ($tags as $tag) {
+        foreach ($this->getProductTags() as $tag) {
+            if ($tag) {
                 $objects[] = json_encode($this->_createTagObject($tag));
             }
         }
