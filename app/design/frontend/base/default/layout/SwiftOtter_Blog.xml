@@ -15,15 +15,6 @@
         </reference>
     </swiftotter_blog_index_page>
 
-    <swiftotter_blog_index_view>
-        <reference name="root">
-            <action method="cachePage">
-                <expires>1</expires>
-                <disqualifiers>*</disqualifiers>
-            </action>
-        </reference>
-    </swiftotter_blog_index_view>
-
     <swiftotter_blog_index_post>
         <reference name="footer_references">
             <action method="addJs">
