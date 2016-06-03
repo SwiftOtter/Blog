@@ -198,15 +198,22 @@ class SwiftOtter_Blog_IndexController extends Mage_Core_Controller_Front_Action
     {
         $cache = Mage::app()->getCache();
 
-        foreach ($cache->getTags() as $tag) {
-            if (stripos($tag, 'blog')) {
+        array_walk ($cache->getTags(), function($tag) use ($cache) {
+            if (stripos($tag, 'blog') !== false) {
                 $ids = $cache->getIdsMatchingAnyTags(array($tag));
                 foreach($ids as $id){
                     $cache->remove($id);
                 }
             }
-        }
+        });
 
+        //Temporary measure to clean up all blog-related blocks
+        array_walk ($cache->getIds(), function($id) use ($cache) {
+            if (stripos($id, 'blog') !== false) {
+                $cache->remove($id);
+            }
+        });
+        
         if (Mage::helper('core')->isModuleEnabled('PleasantHill_Adminhtml')) {
             Mage::helper('PleasantHill_Adminhtml/Cache_Key')->clean([ '*blog*', '*BLOG*' ]);
         }
