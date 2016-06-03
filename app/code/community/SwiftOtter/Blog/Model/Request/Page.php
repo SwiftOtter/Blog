@@ -27,6 +27,13 @@ class SwiftOtter_Blog_Model_Request_Page extends SwiftOtter_Blog_Model_Request_A
     /** @var  int $_totalCount */
     protected $_totalCount;
 
+    protected $_cachePrefix = 'PAGE';
+    protected $_includedKeys = ['id'];
+    protected $_cacheTags = [
+        'blog_post',
+        'blog_page'
+    ];
+
 
     protected $_type = self::TYPE_PAGE;
 
@@ -45,6 +52,16 @@ class SwiftOtter_Blog_Model_Request_Page extends SwiftOtter_Blog_Model_Request_A
         }
 
         return $this->_posts;
+    }
+
+    protected function _getCacheTagData()
+    {
+        $posts = $this->getPosts();
+        $separator = SwiftOtter_Blog_Model_Cache::GROUP_SEPARATOR;
+
+        return array_map(function(SwiftOtter_Blog_Model_Post $post) use ($separator) {
+            return strtolower(SwiftOtter_Blog_Model_Cache::CACHE_PREFIX . $separator . $this->_cachePrefix . $separator . 'id' . $separator . $post->getId());
+        }, $posts);
     }
 
     public function getPageNumber()
@@ -92,10 +109,11 @@ class SwiftOtter_Blog_Model_Request_Page extends SwiftOtter_Blog_Model_Request_A
 
     protected function _formulatePosts()
     {
+        $body = $this->getBody();
         $posts = array();
 
-        if (isset($this->_json['posts']) && is_array($this->_json['posts'])) {
-            foreach ($this->_json['posts'] as $postData) {
+        if (isset($body['posts']) && is_array($body['posts'])) {
+            foreach ($body['posts'] as $postData) {
                 $post = Mage::getModel('SwiftOtter_Blog/Post')->init($postData);
 
                 $posts[] = $post;

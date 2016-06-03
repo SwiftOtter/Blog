@@ -19,7 +19,7 @@
  * @package default
  **/
 
-class SwiftOtter_Blog_Model_Category extends Mage_Core_Model_Abstract
+class SwiftOtter_Blog_Model_Category extends SwiftOtter_Blog_Model_Abstract
 {
     protected $_children = array();
     protected $_level;

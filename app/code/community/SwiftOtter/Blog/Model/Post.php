@@ -19,7 +19,7 @@
  * @package default
  **/
 
-class SwiftOtter_Blog_Model_Post extends Mage_Core_Model_Abstract
+class SwiftOtter_Blog_Model_Post extends SwiftOtter_Blog_Model_Abstract
 {
     protected $_comments;
     protected $_author;
@@ -39,6 +39,11 @@ class SwiftOtter_Blog_Model_Post extends Mage_Core_Model_Abstract
     public function getId()
     {
         return $this->getData('id');
+    }
+
+    public function getTitle()
+    {
+        return $this->getData('title');
     }
 
     /**

@@ -23,9 +23,17 @@ class SwiftOtter_Blog_IndexController extends Mage_Core_Controller_Front_Action
 {
     const NO_ROUTE_CONFIG = 'swiftotter_config/blog/blog_no_route';
 
+    /**
+     * The following $_visits variable allows us to be able to see how many times this controller
+     * has been called. We have a `postDispatch()` function to cache the API responses, but we don't
+     * want to call that multiple times in a request.
+     */
+    protected $_visits = 0;
+
     public function viewAction()
     {
         try {
+            /** @var SwiftOtter_Blog_Model_Response $response */
             $response = Mage::getModel('SwiftOtter_Blog/Api')->get();
 
             /** @var SwiftOtter_Blog_Model_Request_Abstract $request */
@@ -84,6 +92,8 @@ class SwiftOtter_Blog_IndexController extends Mage_Core_Controller_Front_Action
             $this->getResponse()->clearAllHeaders()
                 ->setHeader('content-type', 'text/xml')
                 ->setBody($feed);
+
+            $this->_cacheData();
         } else {
             Mage::log("Feed wasn't found. Forwarding to 404.", SwiftOtter_Blog_Helper_Data::LOG);
             $this->_noRouteAction();
@@ -116,6 +126,8 @@ class SwiftOtter_Blog_IndexController extends Mage_Core_Controller_Front_Action
             Mage::register('current_post', $post);
             $this->loadLayout();
             $this->renderLayout();
+
+            $this->_cacheData();
         } else {
             Mage::log("Blog: Post wasn't found correctly. Forwarding to 404.", 4, SwiftOtter_Blog_Helper_Data::LOG);
             $this->_noRouteAction();
@@ -133,6 +145,8 @@ class SwiftOtter_Blog_IndexController extends Mage_Core_Controller_Front_Action
 
             $this->loadLayout();
             $this->renderLayout();
+
+            $this->_cacheData();
         }
     }
 
@@ -170,6 +184,13 @@ class SwiftOtter_Blog_IndexController extends Mage_Core_Controller_Front_Action
             echo "Success";
         } catch (Exception $e) {
             Mage::log('Failed to clear cache when triggered by blog.', 2, SwiftOtter_Blog_Helper_Data::LOG);
+        }
+    }
+
+    protected function _cacheData()
+    {
+        if ($request = $this->getRequest()->getParam('request')) {
+            Mage::getModel('SwiftOtter_Blog/Cache')->save($request);
         }
     }
 

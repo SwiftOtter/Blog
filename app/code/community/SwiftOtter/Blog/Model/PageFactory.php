@@ -21,23 +21,26 @@
 
 class SwiftOtter_Blog_Model_PageFactory
 {
-    public function getPageFrom(\Guzzle\Http\Message\Response $response)
+    public function getPageFrom(SwiftOtter_Blog_Model_Response $response)
     {
-        if (strpos($response->getHeader('content-type'), 'xml') !== false) {
-            return Mage::getModel('SwiftOtter_Blog/Request_Feed')->init($response->getBody());
+        if ($response->isXml()) {
+            $subType = 'Feed';
         } else {
-            $json = $response->json();
+            $json = json_decode($response->getBody(), true);
             if (isset($json['error']) && $json['error'] == 'Not found') {
                 throw new SwiftOtter_Blog_FileNotFoundException();
             }
 
-            if (isset($response->getInfo()["query"][Mage::helper("SwiftOtter_Blog")->getSearchParam()])) {
-                return Mage::getModel('SwiftOtter_Blog/Request_Page_Search')->init($json);
+            if ($response->hasQueryKey(Mage::helper("SwiftOtter_Blog")->getSearchParam())) {
+                $subType = 'Page_Search';
             } else if (isset($json['posts'])) {
-                return Mage::getModel('SwiftOtter_Blog/Request_Page')->init($json);
+                $subType = 'Page';
             } else {
-                return Mage::getModel('SwiftOtter_Blog/Request_Single')->init($json);
+                $subType = 'Single';
             }
         }
+
+        $type = "SwiftOtter_Blog_Model_Request_$subType";
+        return new $type($response);
     }
 }

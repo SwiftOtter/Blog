@@ -19,7 +19,7 @@
  * @package default
  **/
 
-class SwiftOtter_Blog_Model_Author extends Mage_Core_Model_Abstract
+class SwiftOtter_Blog_Model_Author extends SwiftOtter_Blog_Model_Abstract
 {
 
 }

@@ -29,21 +29,33 @@ class SwiftOtter_Blog_Model_Api
 
     /**
      * @param string $url
+     * @return SwiftOtter_Blog_Model_Response
+     * @throws Exception
+     * @throws SwiftOtter_Blog_FileNotFoundException
+     */
+    public function get($url = '', $cache = true)
+    {
+        $url = $this->_formatUrl($url);
+        $this->_lastUrl = $url;
+
+        if ($cache && ($cached = $this->_getCacheFor($url)) && is_array($cached)) {
+            return new SwiftOtter_Blog_Model_Response($url, $cached['content-type'], $cached['body']);
+        } else {
+            $response = $this->_loadResponse($url);
+            return new SwiftOtter_Blog_Model_Response($url, $response->getContentType(), $response->getBody(true));
+        }
+    }
+
+    /**
+     * @param $url
      * @return \Guzzle\Http\Message\Response
      * @throws Exception
      * @throws SwiftOtter_Blog_FileNotFoundException
      */
-    public function get($url = '')
+    protected function _loadResponse($url)
     {
-        if (!$url) {
-            $url = Mage::helper('SwiftOtter_Blog')->getBlogUrl();
-        } else {
-            $url = Mage::helper('SwiftOtter_Blog')->addQueryParams($url);
-        }
-
-        $this->_lastUrl = $url;
-
         Mage::log("GET: Sending request to " . $url, 7, SwiftOtter_Blog_Helper_Data::LOG);
+
         $client = $this->_getClient($url);
         $response = $client->get(null, null, array('cookies' => array('frontend' => $this->_getClientCookies())));
         $queryParams = $response->getQuery();
@@ -61,6 +73,22 @@ class SwiftOtter_Blog_Model_Api
         }
 
         return $response;
+    }
+
+    protected function _formatUrl($url)
+    {
+        if (!$url) {
+            $url = Mage::helper('SwiftOtter_Blog')->getBlogUrl();
+        } else {
+            $url = Mage::helper('SwiftOtter_Blog')->addQueryParams($url);
+        }
+
+        return $url;
+    }
+
+    protected function _getCacheFor($url)
+    {
+        return Mage::getModel('SwiftOtter_Blog/Cache')->loadForUrl($url);
     }
 
     /**

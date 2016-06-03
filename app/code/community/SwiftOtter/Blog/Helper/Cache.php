@@ -12,26 +12,15 @@
  * You should have received a copy of the GNU General Public License
  * along with SwiftOtter_Base. If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright: 2013 (c) SwiftOtter Studios
- *
  * @author Joseph Maxwell
- * @copyright Swift Otter Studios, 5/6/15
+ * @copyright SwiftOtter Studios, 5/30/16
  * @package default
  **/
 
-interface SwiftOtter_Blog_Model_Request_Interface
+class SwiftOtter_Blog_Helper_Cache
 {
-    /**
-     * Gets the data to save to the cache.
-     *
-     * @return string
-     */
-    public function getCacheData();
-
-    /**
-     * Returns a list of applicable cache tags.
-     *
-     * @return array
-     */
-    public function getCacheTags();
+    public function flattenUrl($key)
+    {
+        return str_replace(['http://', 'https://', '/', '.', '=', '?'], ['', '', '_', '_', '_', '_'], trim($key, '/'));
+    }
 }

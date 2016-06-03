@@ -79,6 +79,16 @@
                 </observers>
             </blog_filter_sidebar_urls>
         </events>
+
+        <cache>
+            <types>
+                <SwiftOtter_Blog_Api_Data module="SwiftOtter_Blog" translate="label">
+                    <label>Blog API Data</label>
+                    <description>Stores data retrieved from external Wordpress API</description>
+                    <tags>blog</tags>
+                </SwiftOtter_Blog_Api_Data>
+            </types>
+        </cache>
     </global>
 
     <crontab>

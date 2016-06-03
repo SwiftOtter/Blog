@@ -23,12 +23,23 @@ class SwiftOtter_Blog_Model_Request_Single extends SwiftOtter_Blog_Model_Request
 {
     protected $_post;
 
-    protected $_type = self::TYPE_SINGLE;
+    protected $_cachePrefix = 'SINGLE';
+    protected $_includedKeys = [
+        'id',
+        'author',
+        'comment_count'
+    ];
 
+    protected $_cacheTags = [
+        'blog_post'
+    ];
+
+    protected $_type = self::TYPE_SINGLE;
+    
     public function getPost()
     {
         if (!$this->_post) {
-            $json = $this->getJson();
+            $json = $this->getBody();
             $this->_post = Mage::getModel('SwiftOtter_Blog/Post');
 
             if (isset($json['post'])) {
@@ -39,5 +50,19 @@ class SwiftOtter_Blog_Model_Request_Single extends SwiftOtter_Blog_Model_Request
         }
 
         return $this->_post;
+    }
+    
+    protected function _getCacheTagData()
+    {
+        $post = $this->getPost();
+        $separator = SwiftOtter_Blog_Model_Cache::GROUP_SEPARATOR;
+
+        return array_filter(array_map(function($key) use ($post, $separator) {
+            if ($value = $post->getData($key)) {
+                return SwiftOtter_Blog_Model_Cache::CACHE_PREFIX . $separator . $this->_cachePrefix . $separator . strtoupper($key) . '_' . $value;
+            } else {
+                return '';
+            }
+        }, $this->_includedKeys));
     }
 }

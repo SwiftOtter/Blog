@@ -19,12 +19,24 @@
  * @package default
  **/
 
-class SwiftOtter_Blog_Model_Request_Abstract
+/**
+ * Immutable object that holds the parsed properties for
+ *
+ * Class SwiftOtter_Blog_Model_Request_Abstract
+ */
+abstract class SwiftOtter_Blog_Model_Request_Abstract
 {
-    protected $_json;
+    protected $_response;
     protected $_type = 'abstract';
-    protected $_url;
     protected $_pageNum = false;
+
+    protected $_includedKeys = ['id'];
+    protected $_cachePrefix = 'abstract';
+    protected $_cacheGroupSeparator = '_';
+    protected $_cacheValueSeparator = ':';
+
+    protected $_baseCacheTag = 'blog';
+    protected $_cacheTags = [];
 
     const TYPE_SINGLE = 'single';
     const TYPE_PAGE = 'page';
@@ -32,28 +44,62 @@ class SwiftOtter_Blog_Model_Request_Abstract
     const TYPE_FEED = 'feed';
     const TYPE_COMMENT = 'comment';
 
-    public function init($json)
+    public function __construct(SwiftOtter_Blog_Model_Response $response)
     {
-        $this->setJson($json);
+        $this->_response = $response;
+
         return $this;
+    }
+
+    abstract protected function _getCacheTagData();
+
+    public function getCacheTags()
+    {
+        return array_merge(
+            [ $this->_baseCacheTag ],
+            $this->_getCacheTagData()
+        );
+    }
+
+    public function getCacheData()
+    {
+        if ($this->_response->isXml()) {
+            $body = $this->getBody();
+        } else {
+            $body = json_encode($this->getBody());
+        }
+
+        return ['url' => $this->getUrl(), 'content-type' => $this->getContentType(), 'body' => $body ];
+    }
+
+    public function getCacheKey()
+    {
+        $separator = SwiftOtter_Blog_Model_Cache::GROUP_SEPARATOR;
+        $data = array_filter(array_merge(
+            [ Mage::helper('SwiftOtter_Blog/Cache')->flattenUrl($this->getUrl()) ]
+        ));
+
+        return SwiftOtter_Blog_Model_Cache::CACHE_PREFIX . $separator . implode($separator, $data);
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this->_response->getContentType();
     }
 
     /**
      * @return array
      */
-    public function getJson()
+    public function getBody()
     {
-        return $this->_json;
-    }
-
-    /**
-     * @param array $json
-     * @return $this;
-     */
-    public function setJson($json)
-    {
-        $this->_json = $json;
-        return $this;
+        if ($this->_response->isXml()) {
+            return $this->_response->getBody();
+        } else {
+            return json_decode($this->_response->getBody(), true);
+        }
     }
 
     /**
@@ -65,31 +111,11 @@ class SwiftOtter_Blog_Model_Request_Abstract
     }
 
     /**
-     * @param string $type
-     * @return $this;
-     */
-    public function setType($type)
-    {
-        $this->_type = $type;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getUrl()
     {
-        return $this->_url;
-    }
-
-    /**
-     * @param string $url
-     * @return $this
-     */
-    public function setUrl($url)
-    {
-        $this->_url = $url;
-        return $this;
+        return $this->_response->getUrl();
     }
 
     public function getPageNumber()
@@ -99,8 +125,8 @@ class SwiftOtter_Blog_Model_Request_Abstract
 
     public function getCurrentVisible()
     {
-        if (isset($this->_json['count'])) {
-            return $this->_json['count'];
+        if (isset($this->getBody()['count'])) {
+            return $this->getBody()['count'];
         } else {
             return 1;
         }
@@ -108,8 +134,8 @@ class SwiftOtter_Blog_Model_Request_Abstract
 
     public function getTotalPosts()
     {
-        if (isset($this->_json['count_total'])) {
-            return $this->_json['count_total'];
+        if (isset($this->getBody()['count_total'])) {
+            return $this->getBody()['count_total'];
         } else {
             return 1;
         }
@@ -117,12 +143,10 @@ class SwiftOtter_Blog_Model_Request_Abstract
 
     public function getTotalPages()
     {
-        if (isset($this->_json['pages'])) {
-            return $this->_json['pages'];
+        if (isset($this->getBody()['pages'])) {
+            return $this->getBody()['pages'];
         } else {
             return 1;
         }
     }
-
-
 }

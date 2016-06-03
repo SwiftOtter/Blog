@@ -30,7 +30,8 @@ class SwiftOtter_Blog_Block_Frontend_Sidebar_Widgets extends SwiftOtter_Base_Blo
             try {
                 Mage::log("Blog: getting sidebar widgets.", 7, SwiftOtter_Blog_Helper_Data::LOG);
                 $widgetCollection = Mage::getModel('SwiftOtter_Blog/Api')->get(
-                    Mage::helper('SwiftOtter_Blog')->getSidebarWidgetUrl()
+                    Mage::helper('SwiftOtter_Blog')->getSidebarWidgetUrl(),
+                    false
                 );
             } catch (Exception $e) {
                 Mage::log("Blog: error when getting sidebar.", 0, SwiftOtter_Blog_Helper_Data::LOG);
@@ -48,7 +49,7 @@ class SwiftOtter_Blog_Block_Frontend_Sidebar_Widgets extends SwiftOtter_Base_Blo
             $widgetCollection = $this->getSidebarWidgetsSubscribed();
         }
         if ($widgetCollection) {
-            $response = $widgetCollection->json();
+            $response = json_decode($widgetCollection->getBody(), true);
         }
 
         if (isset($response["widgets"])) {

@@ -23,6 +23,7 @@ class SwiftOtter_Blog_Model_Request_Feed extends SwiftOtter_Blog_Model_Request_A
 {
     protected $_type = self::TYPE_FEED;
     protected $_xml;
+    protected $_cacheTags = [ 'blog_feed' ];
 
     public function init($value)
     {
@@ -41,6 +42,11 @@ class SwiftOtter_Blog_Model_Request_Feed extends SwiftOtter_Blog_Model_Request_A
 
         $this->_xml = Mage::helper('SwiftOtter_Blog')->filter($this->_xml);
         return $this;
+    }
+
+    protected function _getCacheTagData()
+    {
+        return 'FEED';
     }
 
     protected function _filterItem($endpoint, $replacement, $value)
