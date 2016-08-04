@@ -52,7 +52,7 @@ class SwiftOtter_Blog_Block_Frontend_List extends SwiftOtter_Base_Block_Template
             );
         }
 
-        if ($request && $request->getPageType() == SwiftOtter_Blog_Model_Request_Page::PAGE_TYPE_INDEX) {
+        if ($request && ($request->getPageType() == SwiftOtter_Blog_Model_Request_Page::PAGE_TYPE_INDEX || Mage::getStoreConfig('swiftotter_config/blog/truncate_after_index_list'))) {
             $this->_isHomePage = true;
         }
 
